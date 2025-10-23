@@ -19,7 +19,7 @@ import json
 
 # Serial Ports +++++++++++++++++++
 port_optolink = os.getenv('PORT_OPTOLINK', '/dev/ttyUSB0')          # Serial port for Optolink device (mandatory, default: '/dev/ttyUSB0')
-port_vitoconnect = os.getenv('PORT_VITOCONNECT', '/dev/ttyAMA0')    # Serial port for Vitoconnect (optional, default: '/dev/ttyAMA0', set None if no Vitoconnect) Pls check https://github.com/philippoo66/optolink-splitter/wiki/520-termios.error:-(22,-'Invalid-argument')
+port_vitoconnect = os.getenv('PORT_VITOCONNECT', None)              # Serial port for Vitoconnect (optional, set None if no Vitoconnect) Pls check https://github.com/philippoo66/optolink-splitter/wiki/520-termios.error:-(22,-'Invalid-argument')
 vs2timeout = os.getenv('VS2_TIMEOUT', 120)                          # Timeout (seconds) for VS2 protocol detection (default: 120)
 
 # MQTT Connection ++++++++++++++++
