@@ -18,14 +18,14 @@ import os
 import json
 
 # Serial Ports +++++++++++++++++++
-port_optolink = os.getenv('PORT_OPTOLINK', '/dev/ttyUSB0')          # Serial port for Optolink device (mandatory, default: '/dev/ttyUSB0')
+port_optolink = os.getenv('PORT_OPTOLINK', '/dev/serial0')          # Serial port for Optolink device (mandatory, default: '/dev/ttyUSB0')
 port_vitoconnect = os.getenv('PORT_VITOCONNECT', None)              # Serial port for Vitoconnect (optional, set None if no Vitoconnect) Pls check https://github.com/philippoo66/optolink-splitter/wiki/520-termios.error:-(22,-'Invalid-argument')
-vs2timeout = os.getenv('VS2_TIMEOUT', 120)                          # Timeout (seconds) for VS2 protocol detection (default: 120)
+vs2timeout = int(os.getenv('VS2_TIMEOUT', 120))                          # Timeout (seconds) for VS2 protocol detection (default: 120)
 
 # MQTT Connection ++++++++++++++++
 mqtt = os.getenv('MQTT_HOST', "192.168.0.123:1883")     # MQTT broker address (default: "192.168.0.123:1883", set None to disable MQTT)
 mqtt_user = os.getenv('MQTT_USER', None)                # MQTT user credentials: "<user>:<pwd>" (default: None for anonymous access)
-mqtt_logging = os.getenv('MQTT_LOGGING', False)         # dis/enables logging of paho.mqtt (default: False)
+mqtt_logging = bool(os.getenv('MQTT_LOGGING', False))        # dis/enables logging of paho.mqtt (default: False)
 
 # MQTT Topics ++++++++++++++++++++
 # Best practices recommendation: Always use lowercase for consistency and compatibility.
@@ -33,7 +33,7 @@ mqtt_fstr = os.getenv('MQTT_FSTR', "{dpname}")          # Format string for MQTT
 mqtt_topic = os.getenv('MQTT_TOPIC', "Vito")            # MQTT topic for publishing data (default: "Vito")
 mqtt_listen = os.getenv('MQTT_LISTEN', "Vito/cmnd")     # MQTT topic for incoming commands (default: "Vito/cmnd", set None to disable)
 mqtt_respond = os.getenv('MQTT_RESPOND', "Vito/resp")   # MQTT topic for responses (default: "Vito/resp", set None to disable)
-mqtt_retain = os.getenv('MQTT_RETAIN', False)           # Publish retained messages. Last message per topic is stored on broker and sent to new/reconnecting subscribers. (default: False)
+mqtt_retain = bool(os.getenv('MQTT_RETAIN', False))           # Publish retained messages. Last message per topic is stored on broker and sent to new/reconnecting subscribers. (default: False)
 
 # TCP/IP ++++++++++++++++++++++++++
 tcpip_port = 65234               # TCP/IP port for communication (default: 65234, used by Viessdata; set None to disable TCP/IP)
@@ -68,7 +68,7 @@ w1sensors = {
 }
 
 # Datapoint Polling List+++++++++
-poll_interval = os.getenv('POLL_INTERVAL', 30)              # Polling interval (seconds), 0 for continuous, -1 to disable (default: 30)
+poll_interval = int(os.getenv('POLL_INTERVAL', 30))              # Polling interval (seconds), 0 for continuous, -1 to disable (default: 30)
 poll_items_default = [
     # (Name, DpAddr, Len, Scale/Type, Signed)
 
