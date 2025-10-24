@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+  optolink:
+    image: optolink-splitter
+    container_name: optolink-splitter
+    devices:
+      - /dev/ttyAMA0:/dev/serial0
+    environment:
+      MQTT_HOST: "192.168.1.1:1883"
+      MQTT_TOPIC: "viessmann"
+      POLL_IINTERVAL: 10
