@@ -104,9 +104,9 @@ def vdatetime2str(data:bytes, fdowidx:int=1) -> str:
     try:
         weekdays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
         wkd = weekdays[int(data[4]) - fdowidx]
-        dt = f"{data[3]:02x}.{data[2]:02x}.{data[0]:02x}{data[1]:02x}"
+        dt = f"{data[0]:02x}{data[1]:02x}-{data[2]:02x}-{data[3]:02x}"
         tm = f"{data[5]:02x}:{data[6]:02x}:{data[7]:02x}"
-        return f"{wkd} {dt} {tm}"
+        return f"{dt}T{tm}+0000"
     except:
         return "(conversion failed)"
 
