@@ -32,6 +32,7 @@ def run_tcpip(host, port) -> socket:
     global fverbose
     # Create a TCP/IP socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     # Bind the socket to the address and port
     server_socket.bind((host, port))
     # Listen for incoming connections
