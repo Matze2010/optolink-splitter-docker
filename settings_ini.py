@@ -45,7 +45,7 @@ olbreath = 0.1                  # Pause (seconds) after a request-response cycle
 
 # Optolink Logging ++++++++++++++
 log_vitoconnect = False         # Enable logging of Vitoconnect Optolink rx+tx telegram communication (default: False)
-show_opto_rx = True             # Display received Optolink data (default: True, no output when run as service)
+show_opto_rx = bool(os.getenv('LOG_OPTOLINK', True))             # Display received Optolink data (default: True, no output when run as service)
 
 # Data Formatting +++++++++++++++
 max_decimals = 4                # Max decimal places for float values (default: 4)

@@ -37,5 +37,3 @@ services:
         ["getTempRL", 3104, 2, 0.01, 0],
         ["getStellungUmschalt", 2576, 1, 1, 0]
       ]'
-    volumes:
-      - /opt/optolink-splitter:/opt/optolink-splitter
