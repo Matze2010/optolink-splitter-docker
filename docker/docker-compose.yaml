@@ -3,9 +3,39 @@ services:
   optolink:
     image: optolink-splitter
     container_name: optolink-splitter
+    restart: unless-stopped
+    ports:
+      - 65234:65234
     devices:
       - /dev/ttyAMA0:/dev/serial0
     environment:
-      MQTT_HOST: "192.168.1.1:1883"
-      MQTT_TOPIC: "viessmann"
-      POLL_IINTERVAL: 10
+      PORT_OPTOLINK: '/dev/serial0'
+      MQTT_HOST: '10.10.5.3:1883'
+      MQTT_TOPIC: 'viessmann'
+      MQTT_LISTEN: 'viessmann/command'
+      MQTT_RESPOND: 'viessmann/response'
+      MQTT_RETAIN: 0
+      POLL_INTERVAL: 10
+      POLL_ITEMS: '[
+        ["getSystemTime",2190,8,"vdatetime"],
+        [10, "getTempA",2048,2,0.1,1],
+        ["getTempWWist", 2052, 2, 0.1, 0],
+        [6, "getBrennerStatus", 21971, 1, 1, 0],
+        [10, "getBrennerStarts", 2186, 4, 1, 0],
+        [10, "getBrennerStunden", 2215, 4, 2.7777778e-4, 0],
+        ["getLeistungIst", 41871, 1, 0.5, 0],
+        ["getNeigungM1", 10195, 1, 0.1, 0],
+        ["getNiveauM1", 10196, 1, 1, 0],
+        ["getTempKessel", 2050, 2, 0.1, 0],
+        ["getTempAbgas", 2054, 2, 0.1, 0],
+        [6, "getTempVLsollM1", 9540, 2, 0.1, 0],
+        ["getBetriebArt", 8961, 1, 1, 0],
+        [10, "getStatusStoerung", 2690, 1, 1, 0],
+        [10, "getError0", 29959, 8,"vdatetime"],
+        [10, "getPumpeStatusZirku", 25877, 2, 1, 0],
+        ["getVolStrom", 3108, 2, 1, 0],
+        ["getTempRL", 3104, 2, 0.01, 0],
+        ["getStellungUmschalt", 2576, 1, 1, 0]
+      ]'
+    volumes:
+      - /opt/optolink-splitter:/opt/optolink-splitter
