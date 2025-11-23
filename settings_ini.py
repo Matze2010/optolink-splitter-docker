@@ -61,11 +61,12 @@ dec_separator = ","             # Decimal separator for CSV output (default: ","
 # 1-Wire Sensors +++++++++++++++
 # A typical sensor for temperature could be DS18B20; please mind that GPIO must be enabled for 1-Wire sensors (see Optolink-Splitter Wiki)
 # Dictionary for 1-Wire sensor configuration (default: empty dictionary)
-w1sensors = {                  
+w1sensors_default = {                  
     # Addr: ('<w1_folder/sn>', '<slave_type>'),   # entry format
 #     0xFFF4: ('28-3ce1d4438fd4', 'ds18b20'),     # Example sensor (highest known Optolink Address is 0xFF17)
 #     0xFFFd: ('28-3ce1d443a4ed', 'ds18b20'),     # Another example sensor
 }
+w1sensors = json.loads(os.environ.get('W1SENSORS')) if os.environ.get('W1SENSORS') else w1sensors_items_default
 
 # Datapoint Polling List+++++++++
 poll_interval = int(os.getenv('POLL_INTERVAL', 30))              # Polling interval (seconds), 0 for continuous, -1 to disable (default: 30)
@@ -115,4 +116,5 @@ poll_items_default = [
 ]
 
 poll_items = json.loads(os.environ.get('POLL_ITEMS')) if os.environ.get('POLL_ITEMS') else poll_items_default
+
 
